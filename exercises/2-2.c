@@ -3,14 +3,14 @@
 
 float integrate(float a, float b);
 
-typedef struct {
+struct Workload {
   float a;
   float b;
   float result;
-} Workload;
+};
 
 void* start_integrate(void* val) {
-  Workload *workload = val;
+  struct Workload *workload = val;
   workload->result = integrate(workload->a, workload->b);
 
   printf("p result: %f\n", workload->result);
@@ -29,7 +29,7 @@ float integrate(float a, float b) {
   float epsilon_2 = 0.0625;
 
   if (df(m) / f(m) > epsilon_1 && b - a > epsilon_2) {
-    Workload workload = {m, b};
+    struct Workload workload = {m, b};
     pthread_t thread;
 
     pthread_create(&thread, NULL, start_integrate, &workload);
