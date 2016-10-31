@@ -13,6 +13,7 @@ void* start_integrate(void* val) {
   struct Workload *workload = val;
   workload->result = integrate(workload->a, workload->b);
 
+  // TODO remove outputs?
   printf("p result: %f\n", workload->result);
 
   return NULL;
