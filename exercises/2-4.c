@@ -21,7 +21,7 @@ void slave() {
   uname(&unameData);
 
   char buffer[CHAR_BUFFER_SIZE];
-  strlcpy(buffer, unameData.sysname, CHAR_BUFFER_SIZE);
+  strcpy(buffer, unameData.sysname);
 
   MPI_Send(buffer, CHAR_BUFFER_SIZE, MPI_CHAR, MASTER_ID, RESULT_HOSTNAME, MPI_COMM_WORLD);
 }
