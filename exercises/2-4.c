@@ -12,6 +12,9 @@ static const int RESULT_HOSTNAME = 0;
 void master(const int size) {
   char buffer[CHAR_BUFFER_SIZE];
 
+  gethostname(buffer, CHAR_BUFFER_SIZE);
+  printf("%s\n", buffer);
+
   for (int n = 0; n < size - 1; n++) {
     MPI_Recv(buffer, CHAR_BUFFER_SIZE, MPI_CHAR, MPI_ANY_SOURCE, RESULT_HOSTNAME, MPI_COMM_WORLD, NULL);
     printf("%s\n", buffer);
