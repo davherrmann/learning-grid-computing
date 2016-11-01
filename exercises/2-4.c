@@ -1,7 +1,9 @@
-#include <stdio.h>
+// use POSIX standard 2004
+#define _XOPEN_SOURCE 700
+
 #include <mpi.h>
-#include <sys/utsname.h>
-#include <string.h>
+#include <stdio.h>
+#include <unistd.h>
 
 static const int CHAR_BUFFER_SIZE = 1024;
 static const int MASTER_ID = 0;
@@ -17,11 +19,8 @@ void master(const int size) {
 }
 
 void slave() {
-  struct utsname unameData;
-  uname(&unameData);
-
   char buffer[CHAR_BUFFER_SIZE];
-  strcpy(buffer, unameData.nodename);
+  gethostname(buffer, CHAR_BUFFER_SIZE);
 
   MPI_Send(buffer, CHAR_BUFFER_SIZE, MPI_CHAR, MASTER_ID, RESULT_HOSTNAME, MPI_COMM_WORLD);
 }
